@@ -129,7 +129,7 @@ const Home = () => {
                     </div>
                     <div className=' flex flex-col gap-5 max-w-160'>
                         <h1 className='text-white text-6xl tracking-wide font-extrabold font-sans'>Connecting Nigeria to the Global Halal Economy</h1>
-                        <p className='text-white text-lg font-san'> <span className='font-bold'>Unlocking Halal & Halalpreneurship Investments Programme (UHIP 2026)</span> brings Nigerian businesses, investors and institutions together to train, invest, connect and showcase.</p>
+                        <p className='text-white/70 text-lg font-san'> <span className='font-bold'>Unlocking Halal & Halalpreneurship Investments Programme (UHIP 2026)</span> brings Nigerian businesses, investors and institutions together to train, invest, connect and showcase.</p>
                     </div>
 
                     <div className="flex gap-5">
