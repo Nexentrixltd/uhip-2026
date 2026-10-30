@@ -11,8 +11,8 @@ type TimeLeft = {
     done: boolean;
 };
 
-function getTimeLeft(targetMs: number): TimeLeft {
-    const diff = Math.max(0, targetMs - Date.now());
+function getTimeLeft(targetMs: number, nowMs: number): TimeLeft {
+    const diff = Math.max(0, targetMs - nowMs);
     const total = Math.floor(diff / 1000);
     return {
         days: Math.floor(total / 86400),
@@ -37,17 +37,41 @@ export default function Countdown({
     useEffect(() => {
         const targetMs = new Date(target).getTime();
         let timer: ReturnType<typeof setTimeout>;
+        let cancelled = false;
+        let offset = 0;
+
+        const now = () => Date.now() + offset;
 
         const tick = () => {
-            const t = getTimeLeft(targetMs);
+            if (cancelled) return;
+            const t = getTimeLeft(targetMs, now());
             setTime(t);
             if (!t.done) {
-                timer = setTimeout(tick, 1000 - (Date.now() % 1000));
+                timer = setTimeout(tick, 1000 - (now() % 1000));
+            }
+        };
+
+        const sync = async () => {
+            try {
+                const sent = Date.now();
+                const res = await fetch("/api/time", { cache: "no-store" });
+                const { now: serverNow } = await res.json();
+                const received = Date.now();
+                offset = serverNow - (sent + received) / 2;
+            } catch {
             }
         };
 
         tick();
-        return () => clearTimeout(timer);
+        sync().then(() => {
+            clearTimeout(timer);
+            tick();
+        });
+
+        return () => {
+            cancelled = true;
+            clearTimeout(timer);
+        };
     }, [target]);
 
     const units = [
@@ -73,7 +97,7 @@ export default function Countdown({
                         key={u.label}
                         className="rounded-2xl font-display bg-brown-900 text-center px-8 py-3 flex items-center gap-3 justify-center flex-col text-gold-600"
                     >
-                        <div className="text-4xl font-medium leading-none tabular-nums text-gold-500 sm:text-6xl">
+                        <div className="text-4xl font-medium leading-none tabular-nums sm:text-6xl">
                             {u.value === undefined ? "--" : pad(u.value)}
                         </div>
                         <div className="text-xs text-white font-semibold">

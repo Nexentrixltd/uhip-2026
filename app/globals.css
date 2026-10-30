@@ -17,6 +17,11 @@
   --color-warm-white: #F8F7F2;
   --color-muted-text: #736C66;
   --color-border: #DDE4DF;
+
+  --color-sage-50: #EDF1EC;   
+  --color-sage-700: #5E6B66;  
+  --color-danger: #B3261E;   
+  --color-brown-950: #140E0B; 
 }
 
 @theme inline {
@@ -24,7 +29,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-montaga), Georgia, serif;
-  --gradient-brown: var(--gradient-brown);
 }
 
 body {
@@ -33,6 +37,10 @@ body {
   font-family: var(--font-sans);
 }
 
-button{
+button {
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
