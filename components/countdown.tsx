@@ -82,30 +82,35 @@ export default function Countdown({
     ];
 
     return (
-        <div className="w-full flex flex-col items-center justify-center p-16">
-            <p className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-brown-600">
-                {time?.done ? "The event has started" : label}
-            </p>
+        <section className="w-full px-4 py-12 sm:px-8 sm:py-16 lg:px-16 lg:py-20">
+            <div className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center">
 
-            <div
-                role="timer"
-                aria-live="off"
-                className="grid max-w-3xl grid-cols-4 gap-3 sm:gap-5"
-            >
-                {units.map((u) => (
-                    <div
-                        key={u.label}
-                        className="rounded-2xl font-display bg-brown-900 text-center px-8 py-3 flex items-center gap-3 justify-center flex-col text-gold-600"
-                    >
-                        <div className="text-4xl font-medium leading-none tabular-nums sm:text-6xl">
-                            {u.value === undefined ? "--" : pad(u.value)}
+                <p className="mb-6 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-brown-600 sm:mb-8 sm:text-xs">
+                    {time?.done ? "The event has started" : label}
+                </p>
+
+                <div
+                    role="timer"
+                    aria-live="off"
+                    className="grid w-full grid-cols-4 gap-2 sm:gap-4 md:gap-5"
+                >
+                    {units.map((u) => (
+                        <div
+                            key={u.label}
+                            className="flex min-w-0 flex-col items-center justify-center gap-2 rounded-xl bg-brown-900 px-1 py-4 text-center font-display text-gold-600 sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-6 md:py-8"
+                        >
+                            <div className="text-2xl font-medium leading-none tabular-nums sm:text-4xl md:text-5xl lg:text-6xl">
+                                {u.value === undefined ? "--" : pad(u.value)}
+                            </div>
+
+                            <div className="text-[9px] font-semibold text-white sm:text-xs">
+                                {u.label}
+                            </div>
                         </div>
-                        <div className="text-xs text-white font-semibold">
-                            {u.label}
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
+
             </div>
-        </div>
+        </section>
     );
 }
