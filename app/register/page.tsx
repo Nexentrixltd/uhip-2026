@@ -21,6 +21,7 @@ export default async function RegisterPage({
     <>
       <PageHero
         eyebrow="Register · Buy ticket"
+        eyebrowStyle="pill"
         title="Secure your place at UHIP 2026"
         description="Choose your ticket, enter attendee details and pay securely with Paystack."
       />
